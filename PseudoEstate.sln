@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PseudoEstate", "PseudoEstate.csproj", "{F75BDD6F-182E-4513-90EB-8FFB710DBE30}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PseudoEstate", ".\PseudoEstate\PseudoEstate.csproj", "{F75BDD6F-182E-4513-90EB-8FFB710DBE30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PseudoEstateAPI", "..\PseudoEstateAPI\PseudoEstateAPI.csproj", "{DE11C39C-0403-41F2-9573-1BB7D1388818}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PseudoEstateAPI", ".\PseudoEstateAPI\PseudoEstateAPI.csproj", "{DE11C39C-0403-41F2-9573-1BB7D1388818}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
