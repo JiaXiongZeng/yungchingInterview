@@ -3,7 +3,7 @@ using PseudoEstate.Entities;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 //Entityframework DBContexts
 builder.Services.AddDbContext<YungchingInterviewContext>();

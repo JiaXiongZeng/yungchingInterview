@@ -1,0 +1,99 @@
+﻿@model PseudoEstate.Entities.Agent
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Agent</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="AgentId" class="control-label"></label>
+                <input asp-for="AgentId" class="form-control" />
+                <span asp-validation-for="AgentId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNo" class="control-label"></label>
+                <input asp-for="PhoneNo" class="form-control" />
+                <span asp-validation-for="PhoneNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Licenses" class="control-label"></label>
+                <input asp-for="Licenses" class="form-control" />
+                <span asp-validation-for="Licenses" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreateId" class="control-label"></label>
+                <input asp-for="CreateId" class="form-control" />
+                <span asp-validation-for="CreateId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreateName" class="control-label"></label>
+                <input asp-for="CreateName" class="form-control" />
+                <span asp-validation-for="CreateName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreateDtm" class="control-label"></label>
+                <input asp-for="CreateDtm" class="form-control" />
+                <span asp-validation-for="CreateDtm" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModifyId" class="control-label"></label>
+                <input asp-for="ModifyId" class="form-control" />
+                <span asp-validation-for="ModifyId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModifyName" class="control-label"></label>
+                <input asp-for="ModifyName" class="form-control" />
+                <span asp-validation-for="ModifyName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModifyDtm" class="control-label"></label>
+                <input asp-for="ModifyDtm" class="form-control" />
+                <span asp-validation-for="ModifyDtm" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DeleteId" class="control-label"></label>
+                <input asp-for="DeleteId" class="form-control" />
+                <span asp-validation-for="DeleteId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DeleteName" class="control-label"></label>
+                <input asp-for="DeleteName" class="form-control" />
+                <span asp-validation-for="DeleteName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DeleteDtm" class="control-label"></label>
+                <input asp-for="DeleteDtm" class="form-control" />
+                <span asp-validation-for="DeleteDtm" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
