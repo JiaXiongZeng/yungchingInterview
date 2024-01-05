@@ -82,11 +82,11 @@ public partial class YungchingInterviewContext : DbContext
         {
             entity.ToTable("estate");
 
+            entity.HasIndex(e => e.EstateId, "IX_estate_estate_id").IsUnique();
+
             entity.HasIndex(e => e.EstateId, "idx_estate_estate_id").IsUnique();
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Address).HasColumnName("address");
             entity.Property(e => e.AgentId).HasColumnName("agent_id");
             entity.Property(e => e.BuildType).HasColumnName("build_type");

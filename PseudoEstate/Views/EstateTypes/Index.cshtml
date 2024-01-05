@@ -1,0 +1,102 @@
+﻿@model IEnumerable<PseudoEstate.Entities.EstateType>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TypeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Desc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsEnable)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateDtm)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModifyId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModifyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModifyDtm)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeleteId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeleteName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeleteDtm)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Desc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsEnable)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDtm)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModifyId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModifyName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModifyDtm)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeleteId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeleteName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeleteDtm)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.TypeId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.TypeId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.TypeId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

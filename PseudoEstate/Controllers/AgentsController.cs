@@ -90,7 +90,7 @@ namespace PseudoEstate.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("[Controller]/[Action]/{agentId}")]
-        public async Task<IActionResult> Edit(string agentId, [Bind("AgentId,Name,Title,PhoneNo,Licenses,CreateId,CreateName,CreateDtm,ModifyId,ModifyName,ModifyDtm,DeleteId,DeleteName,DeleteDtm")] Agent agent)
+        public async Task<IActionResult> Edit(string agentId, [Bind("Id,AgentId,Name,Title,PhoneNo,Licenses,CreateId,CreateName,CreateDtm,ModifyId,ModifyName,ModifyDtm,DeleteId,DeleteName,DeleteDtm")] Agent agent)
         {
             if (agentId != agent.AgentId)
             {

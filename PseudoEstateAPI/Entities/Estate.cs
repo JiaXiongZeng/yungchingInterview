@@ -7,7 +7,7 @@ public partial class Estate
 {
     public long Id { get; set; }
 
-    public string? EstateId { get; set; }
+    public string EstateId { get; set; } = null!;
 
     public string? Name { get; set; }
 
