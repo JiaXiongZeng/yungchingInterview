@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34024.191
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PseudoEstate", "PseudoEstate.csproj", "{F75BDD6F-182E-4513-90EB-8FFB710DBE30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PseudoEstateAPI", "..\PseudoEstateAPI\PseudoEstateAPI.csproj", "{DE11C39C-0403-41F2-9573-1BB7D1388818}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F75BDD6F-182E-4513-90EB-8FFB710DBE30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F75BDD6F-182E-4513-90EB-8FFB710DBE30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F75BDD6F-182E-4513-90EB-8FFB710DBE30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F75BDD6F-182E-4513-90EB-8FFB710DBE30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE11C39C-0403-41F2-9573-1BB7D1388818}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE11C39C-0403-41F2-9573-1BB7D1388818}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE11C39C-0403-41F2-9573-1BB7D1388818}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE11C39C-0403-41F2-9573-1BB7D1388818}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5F7F4C12-D5B4-4D39-9B0D-231CCFFFE7CE}
+	EndGlobalSection
+EndGlobal
