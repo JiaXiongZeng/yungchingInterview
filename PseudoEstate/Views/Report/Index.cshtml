@@ -1,0 +1,129 @@
+﻿@model IEnumerable<PseudoEstate.Report>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementById("search").onclick = function (e) {
+            var agentId = document.getElementById("agentId").value;
+            if (agentId) {
+                location.href = '/Report/ByAgent/' + agentId
+            } else {
+                location.href = '/Report/Index';
+            }
+        }
+    }
+</script>
+
+<h1>Index</h1>
+
+<label>Agent Id:&nbsp;</label>
+<input type="text" id="agentId" value="" />
+<input type="button" id="search" value="Search" />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EstateId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BuildType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstateDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OnlineDtm)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SquareMeters)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OwnerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OwnerPhoneNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OwnerEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AgentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AgentTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AgentPhoneNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AgentLicenses)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EstateId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BuildType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EstateDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OnlineDtm)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SquareMeters)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OwnerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OwnerPhoneNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OwnerEmail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AgentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AgentTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AgentPhoneNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AgentLicenses)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

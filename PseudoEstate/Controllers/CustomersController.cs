@@ -2,13 +2,11 @@
 
 namespace PseudoEstate.Controllers
 {
-    public class CustomersController : Controller
+    public class CustomersController : BaseController
     {
-        private readonly SwaggerClient _api;
-
-        public CustomersController(SwaggerClient api)
+        public CustomersController(SwaggerClient api): base(api)
         {
-            _api = api;
+            //Other implementations
         }
 
         // GET: Customers

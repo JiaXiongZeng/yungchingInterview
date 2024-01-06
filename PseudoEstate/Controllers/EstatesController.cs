@@ -2,13 +2,11 @@
 
 namespace PseudoEstate.Controllers
 {
-    public class EstatesController : Controller
+    public class EstatesController : BaseController
     {
-        private readonly SwaggerClient _api;
-
-        public EstatesController(SwaggerClient api)
+        public EstatesController(SwaggerClient api): base(api)
         {
-            _api = api;
+            //Other implementations
         }
 
         // GET: Estates

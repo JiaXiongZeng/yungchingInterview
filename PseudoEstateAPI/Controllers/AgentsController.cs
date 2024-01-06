@@ -20,7 +20,7 @@ namespace PseudoEstateAPI.Controllers
             _context = context;
         }
 
-        // GET: api/Agents
+        // GET: /Agents
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Agent>>> GetAgents()
         {

@@ -1,5 +1,5 @@
 using PseudoEstate;
-using PseudoEstate.Entities;
+//using PseudoEstate.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 //Entityframework DBContexts
-builder.Services.AddDbContext<YungchingInterviewContext>();
+//builder.Services.AddDbContext<YungchingInterviewContext>();
 
 //Swagger Client
 builder.Services.AddSingleton(x => new SwaggerClient("https://localhost:8089", new HttpClient()));

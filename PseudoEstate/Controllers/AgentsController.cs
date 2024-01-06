@@ -2,13 +2,10 @@
 
 namespace PseudoEstate.Controllers
 {
-    public class AgentsController : Controller
+    public class AgentsController : BaseController
     {
-        private readonly SwaggerClient _api;
-
-        public AgentsController(SwaggerClient api)
-        {
-            _api = api;
+        public AgentsController(SwaggerClient api): base(api)  {
+            //Other implementations
         }
 
         // GET: Agents
