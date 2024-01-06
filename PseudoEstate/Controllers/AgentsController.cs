@@ -1,42 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using PseudoEstate.Entities;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace PseudoEstate.Controllers
 {
     public class AgentsController : Controller
     {
-        private readonly YungchingInterviewContext _context;
+        private readonly SwaggerClient _api;
 
-        public AgentsController(YungchingInterviewContext context)
+        public AgentsController(SwaggerClient api)
         {
-            _context = context;
+            _api = api;
         }
 
         // GET: Agents
         public async Task<IActionResult> Index()
         {
-            return _context.Agents != null ?
-                        View(await _context.Agents.ToListAsync()) :
-                        Problem("Entity set 'YungchingInterviewContext.Agents'  is null.");
+            return View(await _api.AgentsAllAsync());
         }
 
         // GET: Agents/Details/A0001
         [Route("[Controller]/[Action]/{agentId}")]
         public async Task<IActionResult> Details(string agentId)
         {
-            if (agentId == null || _context.Agents == null)
+            if (agentId == null)
             {
                 return NotFound();
             }
 
-            var agent = await _context.Agents
-                .FirstOrDefaultAsync(m => m.AgentId == agentId);
+            var agent = await _api.AgentsGETAsync(agentId);
             if (agent == null)
             {
                 return NotFound();
@@ -60,8 +50,7 @@ namespace PseudoEstate.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(agent);
-                await _context.SaveChangesAsync();
+                await _api.AgentsPOSTAsync(agent);
                 return RedirectToAction(nameof(Index));
             }
             return View(agent);
@@ -71,12 +60,12 @@ namespace PseudoEstate.Controllers
         [Route("[Controller]/[Action]/{agentId}")]
         public async Task<IActionResult> Edit(string agentId)
         {
-            if (agentId == null || _context.Agents == null)
+            if (agentId == null)
             {
                 return NotFound();
             }
 
-            var agent = await _context.Agents.FirstOrDefaultAsync(x => x.AgentId == agentId);
+            var agent = await _api.AgentsGETAsync(agentId);
             if (agent == null)
             {
                 return NotFound();
@@ -101,12 +90,11 @@ namespace PseudoEstate.Controllers
             {
                 try
                 {
-                    _context.Update(agent);
-                    await _context.SaveChangesAsync();
+                    await _api.AgentsPUTAsync(agentId, agent);
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (Exception)
                 {
-                    if (!AgentExists(agent.AgentId))
+                    if (!await AgentExists(agent.AgentId))
                     {
                         return NotFound();
                     }
@@ -124,13 +112,12 @@ namespace PseudoEstate.Controllers
         [Route("[Controller]/[Action]/{agentId}")]
         public async Task<IActionResult> Delete(string agentId)
         {
-            if (agentId == null || _context.Agents == null)
+            if (agentId == null)
             {
                 return NotFound();
             }
 
-            var agent = await _context.Agents
-                .FirstOrDefaultAsync(m => m.AgentId == agentId);
+            var agent = await _api.AgentsGETAsync(agentId);
             if (agent == null)
             {
                 return NotFound();
@@ -145,23 +132,18 @@ namespace PseudoEstate.Controllers
         [Route("[Controller]/[Action]/{agentId}")]
         public async Task<IActionResult> DeleteConfirmed(string agentId)
         {
-            if (_context.Agents == null)
-            {
-                return Problem("Entity set 'YungchingInterviewContext.Agents'  is null.");
-            }
-            var agent = await _context.Agents.FirstOrDefaultAsync(x => x.AgentId == agentId);
+            var agent = await _api.AgentsGETAsync(agentId);
             if (agent != null)
             {
-                _context.Agents.Remove(agent);
+                await _api.AgentsDELETEAsync(agentId);
             }
-
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AgentExists(string agentId)
+        private async Task<bool> AgentExists(string agentId)
         {
-            return (_context.Agents?.Any(e => e.AgentId == agentId)).GetValueOrDefault();
+            var agent = await _api.AgentsGETAsync(agentId);
+            return (agent != null);
         }
     }
 }

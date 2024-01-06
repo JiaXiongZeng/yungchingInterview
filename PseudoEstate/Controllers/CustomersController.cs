@@ -1,42 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using PseudoEstate.Entities;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace PseudoEstate.Controllers
 {
     public class CustomersController : Controller
     {
-        private readonly YungchingInterviewContext _context;
+        private readonly SwaggerClient _api;
 
-        public CustomersController(YungchingInterviewContext context)
+        public CustomersController(SwaggerClient api)
         {
-            _context = context;
+            _api = api;
         }
 
         // GET: Customers
         public async Task<IActionResult> Index()
         {
-              return _context.Customers != null ? 
-                          View(await _context.Customers.ToListAsync()) :
-                          Problem("Entity set 'YungchingInterviewContext.Customers'  is null.");
+            return View(await _api.CustomersAllAsync());
         }
 
         // GET: Customers/Details/C0001
         [Route("[Controller]/[Action]/{customerId}")]
         public async Task<IActionResult> Details(string customerId)
         {
-            if (customerId == null || _context.Customers == null)
+            if (customerId == null)
             {
                 return NotFound();
             }
 
-            var customer = await _context.Customers
-                .FirstOrDefaultAsync(m => m.CustomerId == customerId);
+            var customer = await _api.CustomersGETAsync(customerId);
             if (customer == null)
             {
                 return NotFound();
@@ -60,8 +50,7 @@ namespace PseudoEstate.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(customer);
-                await _context.SaveChangesAsync();
+                await _api.CustomersPOSTAsync(customer);
                 return RedirectToAction(nameof(Index));
             }
             return View(customer);
@@ -71,12 +60,12 @@ namespace PseudoEstate.Controllers
         [Route("[Controller]/[Action]/{customerId}")]
         public async Task<IActionResult> Edit(string customerId)
         {
-            if (customerId == null || _context.Customers == null)
+            if (customerId == null)
             {
                 return NotFound();
             }
 
-            var customer = await _context.Customers.FirstOrDefaultAsync(x => x.CustomerId == customerId);
+            var customer = await _api.CustomersGETAsync(customerId);
             if (customer == null)
             {
                 return NotFound();
@@ -101,12 +90,11 @@ namespace PseudoEstate.Controllers
             {
                 try
                 {
-                    _context.Update(customer);
-                    await _context.SaveChangesAsync();
+                    await _api.CustomersPUTAsync(customerId, customer);
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (Exception)
                 {
-                    if (!CustomerExists(customer.CustomerId))
+                    if (!await CustomerExists(customer.CustomerId))
                     {
                         return NotFound();
                     }
@@ -124,13 +112,12 @@ namespace PseudoEstate.Controllers
         [Route("[Controller]/[Action]/{customerId}")]
         public async Task<IActionResult> Delete(string customerId)
         {
-            if (customerId == null || _context.Customers == null)
+            if (customerId == null)
             {
                 return NotFound();
             }
 
-            var customer = await _context.Customers
-                .FirstOrDefaultAsync(m => m.CustomerId == customerId);
+            var customer = await _api.CustomersGETAsync(customerId);
             if (customer == null)
             {
                 return NotFound();
@@ -145,23 +132,18 @@ namespace PseudoEstate.Controllers
         [Route("[Controller]/[Action]/{customerId}")]
         public async Task<IActionResult> DeleteConfirmed(string customerId)
         {
-            if (_context.Customers == null)
-            {
-                return Problem("Entity set 'YungchingInterviewContext.Customers'  is null.");
-            }
-            var customer = await _context.Customers.FirstOrDefaultAsync(x => x.CustomerId == customerId);
+            var customer = await _api.CustomersGETAsync(customerId);
             if (customer != null)
             {
-                _context.Customers.Remove(customer);
+                await _api.CustomersDELETEAsync(customerId);
             }
-            
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CustomerExists(string customerId)
+        private async Task<bool> CustomerExists(string customerId)
         {
-          return (_context.Customers?.Any(e => e.CustomerId == customerId)).GetValueOrDefault();
+            var customer = await _api.CustomersGETAsync(customerId);
+            return (customer != null);
         }
     }
 }

@@ -1,42 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using PseudoEstate.Entities;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace PseudoEstate.Controllers
 {
     public class EstateTypesController : Controller
     {
-        private readonly YungchingInterviewContext _context;
+        private readonly SwaggerClient _api;
 
-        public EstateTypesController(YungchingInterviewContext context)
+        public EstateTypesController(SwaggerClient api)
         {
-            _context = context;
+            _api = api;
         }
 
         // GET: EstateTypes
         public async Task<IActionResult> Index()
         {
-              return _context.EstateTypes != null ? 
-                          View(await _context.EstateTypes.ToListAsync()) :
-                          Problem("Entity set 'YungchingInterviewContext.EstateTypes'  is null.");
+            return View(await _api.EstateTypesAllAsync());
         }
 
         // GET: EstateTypes/Details/T0001
         [Route("[Controller]/[Action]/{typeId}")]
         public async Task<IActionResult> Details(string typeId)
         {
-            if (typeId == null || _context.EstateTypes == null)
+            if (typeId == null)
             {
                 return NotFound();
             }
 
-            var estateType = await _context.EstateTypes
-                .FirstOrDefaultAsync(m => m.TypeId == typeId);
+            var estateType = await _api.EstateTypesGETAsync(typeId);
             if (estateType == null)
             {
                 return NotFound();
@@ -60,8 +50,7 @@ namespace PseudoEstate.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(estateType);
-                await _context.SaveChangesAsync();
+                await _api.EstateTypesPOSTAsync(estateType);
                 return RedirectToAction(nameof(Index));
             }
             return View(estateType);
@@ -71,12 +60,12 @@ namespace PseudoEstate.Controllers
         [Route("[Controller]/[Action]/{typeId}")]
         public async Task<IActionResult> Edit(string typeId)
         {
-            if (typeId == null || _context.EstateTypes == null)
+            if (typeId == null)
             {
                 return NotFound();
             }
 
-            var estateType = await _context.EstateTypes.FirstOrDefaultAsync(x => x.TypeId == typeId);
+            var estateType = await _api.EstateTypesGETAsync(typeId);
             if (estateType == null)
             {
                 return NotFound();
@@ -101,12 +90,11 @@ namespace PseudoEstate.Controllers
             {
                 try
                 {
-                    _context.Update(estateType);
-                    await _context.SaveChangesAsync();
+                    await _api.EstateTypesPUTAsync(typeId, estateType);
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (Exception)
                 {
-                    if (!EstateTypeExists(estateType.TypeId))
+                    if (!await EstateTypeExists(estateType.TypeId))
                     {
                         return NotFound();
                     }
@@ -124,13 +112,12 @@ namespace PseudoEstate.Controllers
         [Route("[Controller]/[Action]/{typeId}")]
         public async Task<IActionResult> Delete(string typeId)
         {
-            if (typeId == null || _context.EstateTypes == null)
+            if (typeId == null)
             {
                 return NotFound();
             }
 
-            var estateType = await _context.EstateTypes
-                .FirstOrDefaultAsync(m => m.TypeId == typeId);
+            var estateType = await _api.EstateTypesGETAsync(typeId);
             if (estateType == null)
             {
                 return NotFound();
@@ -145,23 +132,18 @@ namespace PseudoEstate.Controllers
         [Route("[Controller]/[Action]/{typeId}")]
         public async Task<IActionResult> DeleteConfirmed(string typeId)
         {
-            if (_context.EstateTypes == null)
-            {
-                return Problem("Entity set 'YungchingInterviewContext.EstateTypes'  is null.");
-            }
-            var estateType = await _context.EstateTypes.FirstOrDefaultAsync(x => x.TypeId == typeId);
+            var estateType = await _api.EstateTypesGETAsync(typeId);
             if (estateType != null)
             {
-                _context.EstateTypes.Remove(estateType);
+                await _api.EstateTypesDELETEAsync(typeId);
             }
-            
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EstateTypeExists(string typeId)
+        private async Task<bool> EstateTypeExists(string typeId)
         {
-          return (_context.EstateTypes?.Any(e => e.TypeId == typeId)).GetValueOrDefault();
+            var estateType = await _api.EstateTypesGETAsync(typeId);
+            return (estateType != null);
         }
     }
 }
