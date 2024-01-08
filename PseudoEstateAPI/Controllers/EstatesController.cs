@@ -109,7 +109,11 @@ namespace PseudoEstateAPI.Controllers
                 return NotFound();
             }
 
-            _context.Estates.Remove(estate);
+            //After testing, we found it a mistake to truly delete the record
+            //_context.Estates.Remove(estate);
+            estate.DeleteId = "LogInID";
+            estate.DeleteName = "LogInName";
+            estate.DeleteDtm = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
             await _context.SaveChangesAsync();
 
             return NoContent();
